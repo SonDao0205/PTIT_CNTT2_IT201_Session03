@@ -1,36 +1,29 @@
 //
-// Created by SonwDao on 17/6/25.
+// Created by SonwDao on 20/6/25.
 //
 #include <stdio.h>
 #include <stdlib.h>
-
-int maxNumber(int **array,int m, int n) {
-    int max = array[0][0];
+int mainDiagonal(int **array,int m,int n) {
+    int sum = 0;
     for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            if (array[i][j] > max) {
-                max = array[i][j];
-            }
-        }
+        sum += array[i][i];
     }
-    return max;
+    return sum;
 }
 
-int minNumber(int **array,int m, int n) {
-    int min = array[0][0];
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            if (array[i][j] < min) {
-                min = array[i][j];
-            }
-        }
+int secondaryDiagonal(int **array,int m,int n) {
+    if (m > n) {
+        return 0;
     }
-    return min;
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += array[i][n-i-1];
+    }
+    return sum;
 }
 
 int main() {
     int m,n;
-    // int array[100][100];
     printf("Nhập số hàng : ");
     scanf("%d", &m);
     printf("Nhập số cột : ");
@@ -49,8 +42,8 @@ int main() {
             scanf("%d", &array[i][j]);
         }
     }
-    printf("Số lớn nhất trong mảng là : %d\n",maxNumber(array,m,n));
-    printf("Số nhỏ nhất trong mảng là : %d\n",minNumber(array,m,n));
+    mainDiagonal(array, m, n) == 0 ? printf("Không có đường chéo chính!\n") : printf("Tổng đường chéo chính : %d\n",mainDiagonal(array, m, n));
+    secondaryDiagonal(array, m, n) == 0 ? printf("Không có đường chéo phụ!\n") : printf("Tổng đường chéo phụ : %d\n",secondaryDiagonal(array, m, n));
     free(array);
 
 }

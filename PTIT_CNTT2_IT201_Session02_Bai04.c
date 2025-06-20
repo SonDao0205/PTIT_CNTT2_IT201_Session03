@@ -4,37 +4,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-float average(int array[],int n) {
-    int sum = 0;
-    int count = 0;
-    for(int i=0;i<n;i++) {
-        if (array[i] % 2 == 0) {
-            sum += array[i];
-            count++;
+int maxNumber(int **array,int m, int n) {
+    int max = array[0][0];
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (array[i][j] > max) {
+                max = array[i][j];
+            }
         }
     }
-    return (float)sum/count;
+    return max;
 }
 
+int minNumber(int **array,int m, int n) {
+    int min = array[0][0];
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (array[i][j] < min) {
+                min = array[i][j];
+            }
+        }
+    }
+    return min;
+}
 
 int main() {
-    int n;
-    printf("Nhập số phần tử : ");
+    int m,n;
+    // int array[100][100];
+    printf("Nhập số hàng : ");
+    scanf("%d", &m);
+    printf("Nhập số cột : ");
     scanf("%d", &n);
-    if (n < 0) {
-        printf("Số lượng phần tử không được âm!");
+    if (m < 0 || n < 0 || m > 1000 || n > 1000) {
+        printf("Số hàng hoặc cột không hợp lệ!");
         return 0;
     }
-    else if (n == 0) {
-        printf("Số lượng phần tử phải lớn hơn 0!");
-        return 0;
+    int **array = (int**)malloc(sizeof(int*) * m);
+    for (int i = 0; i < m; i++) {
+        array[i] = (int*)malloc(sizeof(int) * n);
     }
-    int *array = (int*)malloc(n*sizeof(int));
-    for(int i=0;i<n;i++) {
-        printf("Nhập array[%d] : ",i);
-        scanf("%d", &array[i]);
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("Nhập array[%d][%d] = ", i, j);
+            scanf("%d", &array[i][j]);
+        }
     }
-
-    printf("Trung bình cộng các số chẵn là : %f",average(array,n));
+    printf("Số lớn nhất trong mảng là : %d\n",maxNumber(array,m,n));
+    printf("Số nhỏ nhất trong mảng là : %d\n",minNumber(array,m,n));
     free(array);
+
 }
